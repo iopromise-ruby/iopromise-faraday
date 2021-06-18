@@ -20,7 +20,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The pattern for using `IOPromise::Faraday` is very similar to regular Faraday, except rather than returning a response object, HTTP requests return promises that resolve to a response object. There is no explicit need to wrap parallel calls in a block, any pending requests will execute in parallel, automatically, when the promise(s) are synced.
+
+```ruby
+require 'iopromise/faraday'
+
+conn = IOPromise::Faraday.new('https://github.com/')
+
+promises = (1..3).map do
+  conn.get('/status')
+end
+
+Promise.all(promises).then do |responses|
+  responses.each_with_index do |response, i|
+    puts "#{i}: #{response.body.strip} #{response.headers["x-github-request-id"]}"
+  end
+end.sync
+```
 
 ## Development
 

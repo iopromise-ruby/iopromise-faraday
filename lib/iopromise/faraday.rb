@@ -1,17 +1,13 @@
 # frozen_string_literal: true
 
 require 'iopromise'
-require_relative 'faraday/connection'
+require_relative 'faraday/client'
 
 module IOPromise
   module Faraday
     class << self
       def new(url = nil, options = {}, &block)
-        options = ::Faraday.default_connection_options.merge(options)
-        ::IOPromise::Faraday::Connection.new(url, options) do |faraday|
-          faraday.adapter :typhoeus
-          block.call unless block.nil?
-        end
+        ::IOPromise::Faraday::Client.new(url, options, &block)
       end
     end
   end
