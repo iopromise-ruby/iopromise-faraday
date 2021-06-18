@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iopromise-faraday (0.1.0)
+    iopromise-faraday (0.1.1)
       ethon (= 0.14.0)
       faraday (= 1.4.2)
       iopromise (~> 0.1.2)
