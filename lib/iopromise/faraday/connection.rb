@@ -16,6 +16,10 @@ module IOPromise
       def in_parallel(manager = nil)
         # not supported, we're always in parallel
       end
+
+      def run_request(*)
+        FaradayPromise.new(super)
+      end
     end
   end
 end
